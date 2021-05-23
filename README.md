@@ -12,3 +12,6 @@
     ```
 1. `docker-compose up -d` を実行します。
 1. 処理が完了すると `results/most_common_genres.json` に集計結果が出力されます。
+
+## 実行ログの閲覧方法
+1. `docker-compose logs -f --tail=500 main` を実行します。
