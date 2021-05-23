@@ -16,6 +16,7 @@ for kind in categorylinks page; do
   file_name_gz="${file_name_sql}.gz"
   file_path_aql="${dump_dir_name}/${file_name_sql}"
   if [ ! -f "${file_path_aql}" ]; then
+    mkdir -p ${dump_dir_name}
     wget -P "${dump_dir_name}/" "https://dumps.wikimedia.org/${dump_env}/${dump_date}/${file_name_gz}"
     gunzip -c "${dump_dir_name}/${file_name_gz}" >"${file_path_aql}"
     mysql -h db -u root -p"${MYSQL_ROOT_PASSWORD}" -D "${MYSQL_DATABASE}" -P "${MYSQL_TCP_PORT}" <"${file_path_aql}"
