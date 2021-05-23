@@ -11,7 +11,8 @@
     MYSQL_TCP_PORT={DBのポート番号 (3306, 他のポートでも可)}
     ```
 1. `docker-compose up -d` を実行します。
-1. 処理が完了すると `results/most_common_genres.json` に集計結果が出力されます。
+1. 処理が完了すると `results/most_common_genres.json` に集計結果が出力されます。  
+また、ジャンルを特定できなかったアニメが `results/genre_not_found_animes.json` に出力されます。 `wikipedia_url` に記載されているWikipediaのURLを確認し、不適切な場合は[Annict Forum](https://annict.jp/forum/categories/db_request) にて正しいURLへのデータ編集リクエストを行なってください。
 
 ## 実行ログの閲覧方法
 1. `docker-compose logs -f --tail=500 main` を実行します。
