@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  main:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    env_file:
+      - .env
+    links:
+      - db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+  db:
+    image: mariadb:10.5.8-focal
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./data:/var/lib/mysql
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - ${MYSQL_TCP_PORT}:${MYSQL_TCP_PORT}
