@@ -53,23 +53,16 @@ with closing(MySQLdb.connect(
                 if isinstance(row[key], bytes):
                     row[key] = row[key].decode()
 
-            if row['cl_type'] == 'subcat':
-                cl_type = 'category'
-            else:
-                cl_type = row['cl_type']
-
             title = row['page_title']
-            titles_str = '/'.join([title, cl_type])
+            titles = copy.deepcopy(cl_to) + [title]
 
-            if titles_str not in used_titles:
-                titles = copy.deepcopy(cl_to) + [title]
-                used_titles.append(titles_str)
-                if cl_type == 'category':
-                    stack.append(titles)
-                else:
-                    for genre in titles[1:-1]:
-                        genres.setdefault(title, set())
-                        genres[title].add(genre)
+            if row['cl_type'] not in ('category', 'subcat'):
+                for genre in titles[1:-1]:
+                    genres.setdefault(title, set())
+                    genres[title].add(genre)
+            elif title not in used_titles:
+                stack.append(titles)
+                used_titles.append(title)
 
 dir_name = 'results'
 os.makedirs(dir_name, exist_ok=True)
