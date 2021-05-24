@@ -13,8 +13,8 @@ with closing(MySQLdb.connect(
         db=os.environ.get('MYSQL_DATABASE'),
         cursorclass=MySQLdb.cursors.DictCursor,
         charset='utf8'
-)) as cnct, closing(cnct.cursor()) as cur:
-    stack = [[rc] for rc in ['SFのジャンル', 'ジャンル別の映画', 'ジャンル別のゲーム', '小説のジャンル', 'ジャンル別の漫画', 'ジャンル別のアニメーション']]
+)) as cnct, closing(cnct.cursor()) as cur, open('root_categories.json') as f:
+    stack = [[rc] for rc in reversed(json.load(f))]
     genres = dict()
     used_titles = list()
 
