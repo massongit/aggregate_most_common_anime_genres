@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 mysqlclient = "==1.4.6"
-requests = "==2.25.1"
+requests = "==2.32.0"
 python-dotenv = "==0.17.1"
 
 [requires]
